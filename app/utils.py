@@ -26,3 +26,24 @@ def draw_grid(window, rows, width):
 
         for j in range(rows):
             pygame.draw.line(window, Colors.GREY, (j * gap, 0), (j * gap, width))
+
+
+def draw(window, grid, rows, width):
+    window.fill()
+
+    for row in grid:
+        for spot in row:
+            spot.draw(window)
+
+    draw_grid(window, rows, width)
+    pygame.display.update()
+
+
+def get_clicked_pos(pos, rows, width):
+    gap = width // rows
+    x, y = pos
+
+    row = y // gap
+    col = x // gap
+
+    return row, col
