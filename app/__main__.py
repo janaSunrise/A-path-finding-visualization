@@ -2,7 +2,8 @@ from tkinter import messagebox, Tk
 
 import pygame
 
-from .utils import algorithm, draw, get_clicked_pos, make_grid
+from .astar import a_star_algorithm
+from .utils import draw, get_clicked_pos, make_grid
 
 SIDE = 800  # The side of the GUI, Keeping it to be a square.
 WINDOW = pygame.display.set_mode((SIDE, SIDE))
@@ -60,7 +61,7 @@ def main(window, width):
                         for spot in row:
                             spot.update_neighbors(grid)
 
-                    res = algorithm(lambda: draw(window, grid, ROWS, width), grid, start, end)
+                    res = a_star_algorithm(lambda: draw(window, grid, ROWS, width), start, end)
 
                     if not res:
                         Tk().wm_withdraw()
