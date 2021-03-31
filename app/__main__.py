@@ -5,7 +5,7 @@ import pygame
 from .astar import a_star_algorithm
 from .utils import draw, get_clicked_pos, make_grid
 
-SIDE = 800  # The side of the GUI, Keeping it to be a square.
+SIDE = 650  # The side of the GUI, Keeping it to be a square.
 WINDOW = pygame.display.set_mode((SIDE, SIDE))
 
 pygame.display.set_caption("A-star Path finding visualization")
