@@ -7,6 +7,8 @@ class Spot:
     def __init__(self, row, col, width, total_rows):
         self.row = row
         self.col = col
+        self.width = width
+        self.total_rows = total_rows
 
         self.x = row * width
         self.y = col * width
@@ -14,8 +16,9 @@ class Spot:
         self.color = Colors.WHITE
 
         self.neighbors = []
-        self.width = width
-        self.total_rows = total_rows
+        self.f_score = float("inf")
+        self.g_score = float("inf")
+        self.came_from = None
 
     def __lt__(self, other):
         return False
@@ -39,6 +42,10 @@ class Spot:
         return self.color == Colors.PURPLE
 
     def reset(self):
+        if self.is_start():
+            self.f_score = float("inf")
+            self.g_score = float("inf")
+
         self.color = Colors.WHITE
 
     def make_open(self):
@@ -64,15 +71,14 @@ class Spot:
 
     def update_neighbors(self, grid):
         self.neighbors = []
-        if self.row < self.total_rows - 1 and not grid[self.row + 1][self.col].is_barrier():
+        if self.row < self.total_rows - 1 and not grid[self.row + 1][self.col].is_barrier():  # DOWN
             self.neighbors.append(grid[self.row + 1][self.col])
 
-        if self.row > 0 and not grid[self.row - 1][self.col].is_barrier():
+        if self.row > 0 and not grid[self.row - 1][self.col].is_barrier():  # UP
             self.neighbors.append(grid[self.row - 1][self.col])
 
-        if self.col < self.total_rows - 1 and not grid[self.row][self.col + 1].is_barrier():
+        if self.col < self.total_rows - 1 and not grid[self.row][self.col + 1].is_barrier():  # RIGHT
             self.neighbors.append(grid[self.row][self.col + 1])
 
-        if self.col > 0 and not grid[self.row][self.col - 1].is_barrier():
+        if self.col > 0 and not grid[self.row][self.col - 1].is_barrier():  # LEFT
             self.neighbors.append(grid[self.row][self.col - 1])
-

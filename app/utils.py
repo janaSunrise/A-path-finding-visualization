@@ -6,7 +6,7 @@ from .colors import Colors
 from .spot import Spot
 
 
-def calculate_distance(point_1, point_2):
+def heuristic(point_1, point_2):
     x_1, y_1 = point_1
     x_2, y_2 = point_2
     
@@ -51,9 +51,9 @@ def get_clicked_pos(pos, rows, width):
     return row, col
 
 
-def reconstruct_path(came_from, current, draw):
-    while current in came_from:
-        current = came_from[current]
+def reconstruct_path(current, draw):
+    while current.came_from:
+        current = current.came_from
         current.make_path()
         draw()
 
@@ -63,13 +63,8 @@ def algorithm(draw, grid, start, end):
     open_set = PriorityQueue()
     open_set.put((0, count, start))
 
-    came_from = {}
-
-    g_score = {spot: float("inf") for row in grid for spot in row}
-    g_score[start] = 0
-
-    f_score = {spot: float("inf") for row in grid for spot in row}
-    f_score[start] = calculate_distance(start.get_pos(), end.get_pos())
+    start.g_score = 0
+    start.g_score = heuristic(start.get_pos(), end.get_pos())
 
     open_set_hash = {start}
 
@@ -82,25 +77,26 @@ def algorithm(draw, grid, start, end):
         open_set_hash.remove(current)
 
         if current == end:
-            reconstruct_path(came_from, end, draw)
+            reconstruct_path(end, draw)
             end.make_end()
             return True
 
         for neighbor in current.neighbors:
-            temp_g_score = g_score[current] + 1
+            temp_g_score = current.g_score + 1
 
-            if temp_g_score < g_score[neighbor]:
-                came_from[neighbor] = current
-                g_score[neighbor] = temp_g_score
-                f_score[neighbor] = temp_g_score + calculate_distance(neighbor.get_pos(), end.get_pos())
+            if temp_g_score < neighbor.g_score:
+                neighbor.came_from = current
+
+                neighbor.g_score = temp_g_score
+                neighbor.f_score = temp_g_score + heuristic(neighbor.get_pos(), end.get_pos())
+
                 if neighbor not in open_set_hash:
                     count += 1
-                    open_set.put((f_score[neighbor], count, neighbor))
+                    open_set.put((neighbor.f_score, count, neighbor))
                     open_set_hash.add(neighbor)
                     neighbor.make_open()
 
         draw()
-
         if current != start:
             current.make_closed()
 

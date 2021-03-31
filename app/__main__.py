@@ -1,3 +1,5 @@
+from tkinter import messagebox, Tk
+
 import pygame
 
 from .utils import algorithm, draw, get_clicked_pos, make_grid
@@ -48,17 +50,21 @@ def main(window, width):
                     end = None
 
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_c:
+                    start = None
+                    end = None
+                    grid = make_grid(ROWS, width)
+
                 if event.key == pygame.K_SPACE and start and end:
                     for row in grid:
                         for spot in row:
                             spot.update_neighbors(grid)
 
-                    algorithm(lambda: draw(window, grid, ROWS, width), grid, start, end)
+                    res = algorithm(lambda: draw(window, grid, ROWS, width), grid, start, end)
 
-                if event.key == pygame.K_c:
-                    start = None
-                    end = None
-                    grid = make_grid(ROWS, width)
+                    if not res:
+                        Tk().wm_withdraw()
+                        messagebox.showinfo("No Solution", "There was no solution")
 
     pygame.quit()
 
