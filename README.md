@@ -15,12 +15,12 @@ The project uses pipenv for dependencies. You can install the dependencies by us
 app using `pipenv run start`.
 
 - Left click to set the start points, end points and the barrier.
-- Right click to remove points
-- `C` Key press to clear the boards
-- `Space` key press to start running the algorithm
+- Right click to remove points.
+- `C` Key press to clear the board.
+- `Space` key press to start running the algorithm.
 
-<p align="center">
+<div align="center">
 
 Made by janaSunrise with ❤
 
-</p>
+</div>
