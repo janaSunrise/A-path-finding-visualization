@@ -3,7 +3,7 @@ from tkinter import messagebox, Tk
 import pygame
 
 from .astar import a_star_algorithm
-from .utils import draw, get_clicked_pos, make_grid
+from .utils import draw, get_clicked_pos, make_grid, random_map
 
 SIDE = 650  # The side of the GUI, Keeping it to be a square.
 WINDOW = pygame.display.set_mode((SIDE, SIDE))
@@ -15,7 +15,7 @@ def main(window, width):
     ROWS = 50
     grid = make_grid(ROWS, width)
 
-    start, end = None, None
+    start, end, grid = random_map(grid, 0)
     run = True
 
     while run:
@@ -52,9 +52,8 @@ def main(window, width):
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_c:
-                    start = None
-                    end = None
                     grid = make_grid(ROWS, width)
+                    start, end, grid = random_map(grid, 0)
 
                 if event.key == pygame.K_SPACE and start and end:
                     for row in grid:

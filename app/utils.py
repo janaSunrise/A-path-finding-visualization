@@ -1,3 +1,5 @@
+import random
+
 import pygame
 
 from .colors import Colors
@@ -54,3 +56,25 @@ def reconstruct_path(current, draw):
         current = current.came_from
         current.make_path()
         draw()
+
+
+def random_map(grid, barriers):
+    choices = [[i, j] for i in range(50) for j in range(50)]
+
+    for i in range(barriers):
+        pos = random.choice(choices)
+        choices.remove(pos)
+        grid[pos[0]][pos[1]].make_barrier()
+
+    i, j = random.choice(choices)
+    grid[i][j].make_start()
+
+    start = grid[i][j]
+    choices.remove([i, j])
+    i, j = random.choice(choices)
+
+    grid[i][j].make_end()
+    end = grid[i][j]
+
+    return start, end, grid
+
