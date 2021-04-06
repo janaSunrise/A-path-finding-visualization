@@ -24,10 +24,10 @@ def draw_grid(window, rows, width):
     gap = width // rows
 
     for i in range(rows):
-        pygame.draw.line(window, Colors.GREY, (0, i*gap), (width, i*gap))
+        pygame.draw.line(window, Colors.BLACK, (0, i*gap), (width, i*gap))
 
         for j in range(rows):
-            pygame.draw.line(window, Colors.GREY, (j * gap, 0), (j * gap, width))
+            pygame.draw.line(window, Colors.BLACK, (j * gap, 0), (j * gap, width))
 
 
 def draw(window, grid, rows, width):
