@@ -41,13 +41,6 @@ class Spot:
     def is_end(self):
         return self.color == Colors.PURPLE
 
-    def reset(self):
-        if self.is_start():
-            self.f_score = float("inf")
-            self.g_score = float("inf")
-
-        self.color = Colors.WHITE
-
     def make_open(self):
         self.color = Colors.GREEN
 
@@ -65,6 +58,13 @@ class Spot:
 
     def make_path(self):
         self.color = Colors.TURQUOISE
+
+    def reset(self):
+        if self.is_start():
+            self.f_score = float("inf")
+            self.g_score = float("inf")
+
+        self.color = Colors.WHITE
 
     def draw(self, window):
         pygame.draw.rect(window, self.color, (self.x, self.y, self.width, self.width))

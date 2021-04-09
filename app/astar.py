@@ -7,6 +7,7 @@ from .utils import heuristic, reconstruct_path
 
 def a_star_algorithm(draw, start, end):
     count = 0
+
     open_set = PriorityQueue()
     open_set.put((0, count, start))
 
@@ -44,6 +45,7 @@ def a_star_algorithm(draw, start, end):
                     neighbor.make_open()
 
         draw()
+
         if current != start:
             current.make_closed()
 
