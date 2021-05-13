@@ -9,7 +9,7 @@ from .spot import Spot
 def heuristic(point_1, point_2):
     x_1, y_1 = point_1
     x_2, y_2 = point_2
-    
+
     return abs(x_1 - x_2) + abs(y_1 - y_2)
 
 
@@ -76,4 +76,3 @@ def random_map(grid, barriers):
     end = grid[i][j]
 
     return start, end, grid
-

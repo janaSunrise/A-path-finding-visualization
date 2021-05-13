@@ -60,7 +60,9 @@ def main(window, width):
                         for spot in row:
                             spot.update_neighbors(grid)
 
-                    res = a_star_algorithm(lambda: draw(window, grid, ROWS, width), start, end)
+                    res = a_star_algorithm(
+                        lambda: draw(window, grid, ROWS, width), start, end
+                    )
 
                     if not res:
                         Tk().wm_withdraw()
@@ -69,5 +71,5 @@ def main(window, width):
     pygame.quit()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main(WINDOW, SIDE)

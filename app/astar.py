@@ -36,7 +36,9 @@ def a_star_algorithm(draw, start, end):
                 neighbor.came_from = current
 
                 neighbor.g_score = temp_g_score
-                neighbor.f_score = temp_g_score + heuristic(neighbor.get_pos(), end.get_pos())
+                neighbor.f_score = temp_g_score + heuristic(
+                    neighbor.get_pos(), end.get_pos()
+                )
 
                 if neighbor not in open_set_hash:
                     count += 1
